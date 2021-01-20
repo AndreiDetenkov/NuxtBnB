@@ -1,3 +1,12 @@
 export default {
-  components: true
+  components: true,
+  head: {
+    titleTemplate: "Nuxt app: %s",
+    htmlAttrs: {
+      lang: "en"
+    },
+    meta: [{
+      charset: "utf-8"
+    }]
+  }
 }
