@@ -1,6 +1,7 @@
 {
   "name": "nuxt-project",
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "nuxt": "^2.14.12"
   },
   "scripts": {
