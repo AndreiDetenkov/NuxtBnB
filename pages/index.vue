@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-for="home in homes" :key="home.objectID">
+  <div style="display:flex">
+    <div v-for="home in homes" :key="home.objectID" >
       <nuxt-link :to="`/home/${home.objectID}`" prefetch><home-card :home="home" /></nuxt-link>
     </div>
   </div>
