@@ -19,12 +19,7 @@ import homes from '~/data/homes.json'
 export default {
   head() {
     return {
-      title: this.home.title,
-      script: [{
-        src: `https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&libraries=places`,
-        defer: true,
-        hid: "map"
-      }]
+      title: this.home.title
     }
   },
   data() {
@@ -36,16 +31,7 @@ export default {
     this.home = homes.find(item => item.objectID === this.$route.params.id)  
   },
   mounted() {
-    const position = new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng)
-    const mapOptions = {
-      zoom: 18,
-      center: position,
-      disableDefaultUI: true,
-      zoomControl: true
-    }
-    const map = new window.google.maps.Map(this.$refs.map, mapOptions)
-    const marker = new window.google.maps.Marker({ position, title: this.home.title })
-    marker.setMap(map)
+    this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
   }
 }
 </script>
