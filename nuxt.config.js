@@ -15,5 +15,5 @@ export default {
   buildModules: [
     '@nuxtjs/dotenv'
   ],
-  plugins: [ '~/plugins/maps.client' ]
+  plugins: [ '~/plugins/maps.client', '~/plugins/dataApi' ]
 }

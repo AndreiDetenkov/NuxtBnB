@@ -14,21 +14,15 @@
 </template>
 
 <script>
-import homes from '~/data/homes.json'
-
 export default {
   head() {
     return {
       title: this.home.title
     }
   },
-  data() {
-    return {
-      home: {}
-    }
-  },
-  created() {
-    this.home = homes.find(item => item.objectID === this.$route.params.id)  
+  async asyncData({ params, $dataApi }) {
+    const home = await $dataApi.getHome(params.id)
+    return { home }
   },
   mounted() {
     this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng)
@@ -38,4 +32,4 @@ export default {
 
 <style lang="scss" scoped>
 
-</style>
+</style> 
