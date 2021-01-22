@@ -6,19 +6,37 @@ export default function (context, inject) {
         'X-Algolia-Application-Id': appId
     }
 
-    inject('dataApi', { getHome })
+    inject('dataApi', {
+        getHome,
+        getReviewsByHomeId
+    })
 
     async function getHome(homeId) {
         try {
-            const response = await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, { headers })
-            const json = await response.json()
-            const { ok, status, statusText } = response
-
-            return { json, ok, status, statusText }
+            return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, { headers }))
         } catch (error) {
-            console.log('error: ', error.status, error.statusText);
             return getErrorResponse(error)
         }
+    }
+
+    async function getReviewsByHomeId(homeId) {
+        try {
+            return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/reviews/query`, {
+                headers,
+                method: 'POST',
+                body: JSON.stringify({
+                    filters: `homeId: ${homeId}`
+                })
+            }))
+        } catch (error) {
+            return getErrorResponse(error)
+        }
+    }
+
+    async function unWrap(response) {
+        const json = await response.json()
+        const { ok, status, statusText } = response
+        return { json, ok, status, statusText }
     }
 
     function getErrorResponse(error) {
