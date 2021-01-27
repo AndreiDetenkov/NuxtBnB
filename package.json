@@ -9,6 +9,7 @@
     "build": "nuxt build"
   },
   "devDependencies": {
-    "@nuxt/types": "~2.14.0"
+    "@nuxt/types": "~2.14.0",
+    "prettier": "^2.2.1"
   }
 }
